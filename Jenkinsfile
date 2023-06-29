@@ -16,14 +16,17 @@ pipeline
 		{
 			steps
 			{
+				sh "rm -rf *"
 				git credentialsId: 'github-jenkins', url: 'https://github.com/Mansvini-Isasare/node-todo-cicd.git'
 			}
 		}
 		stage('deploy')
 		{
-			sh "docker build . -t node-app-todo"
-			sh "docker run -d --name node-app-container -p 8000:8000 node-app-todo"
-
+			steps
+			{
+				sh "docker build . -t node-app-todo"
+				sh "docker run -d --name node-app-container -p 8000:8000 node-app-todo"
+			}
 		}
 	}
 }
